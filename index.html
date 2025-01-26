@@ -1,58 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autoblazemotors</title>
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autoblazemotors</title>
+  <link rel="shortcut icon" href="#" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .hero {
+      transition: background-image 1s ease-in-out;
+    }
+  </style>
 </head>
 <body>
-    <nav class="bg-gray-800 text-white">
-        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+  <nav class="bg-gray-800 text-white">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="text-lg font-bold">
+        <a href="#">Logo</a>
+      </div>
+      <div class="hidden md:flex space-x-6">
+        <a href="#">Home</a>
+        <a href="#">View more cars</a>
+        <a href="#">Contact us</a>
+      </div>
+      <button id="menu-button" class="md:hidden cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden py-5">
+      <a href="#" class="block px-4 py-2 hover:bg-gray-700">Home</a>
+      <a href="#" class="block px-4 py-2 hover:bg-gray-700">View more cars </a>
+      <a href="#" class="block px-4 py-2 hover:bg-gray-700">Contact us</a>
+    </div>
+  </nav>
 
-          <div class="text-lg font-bold">
-            <a href="#">Logo</a>
-          </div>
-    
-          <div class="hidden md:flex space-x-6">
-            <a href="#" class="hover:text-gray-400">Home</a>
-            <a href="#" class="hover:text-gray-400">About</a>
-            <a href="#" class="hover:text-gray-400">Services</a>
-            <a href="#" class="hover:text-gray-400">Contact</a>
-          </div>
-    
-          <button id="menu-button" class="md:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-    
-        <div id="mobile-menu" class="hidden md:hidden py-5">
-          <a href="#" class="block px-4 py-2 hover:bg-gray-700">Home</a>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-700">About</a>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-700">Services</a>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-700">Contact</a>
-        </div>
-      </nav>
+  <section>
+    <div
+      class="hero h-[79vh] bg-cover bg-center flex flex-col items-center justify-center text-white relative"
+      id="hero"
+      style="background-image: url('cars/car.jpg');"
+    >
+      <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+      <div class="relative z-10 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-2" id="car-name">Toyota Highlander</h1>
+        <p class="text-lg mb-4" id="car-description">SUPER CLEAN!! Foreign used Highlander 2005 model fully loaded</p>
+        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded text-lg font-semibold">See More</a>
+      </div>
+    </div>
+  </section>
 
+  <script>
+    const menuButton = document.getElementById("menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
 
+    menuButton.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
 
-      <script>
-        const menuButton = document.getElementById('menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-    
-        menuButton.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
-        });
-      </script>
-    
+    const cars = [
+      {
+        name: "Toyota Highlander",
+        image: "cars/car.jpg",
+        description: "SUPER CLEAN!!Foreign used Highlander 2005 model fully loaded",
+      },
+      {
+        name: "Sienna",
+        image: "cars/sienna.jpeg",
+        description: "SUPER CLEAN!! Local used sienna 2012 model fully loaded",
+      },
+      {
+        name: "Brabus",
+        image: "cars/brabus.jpeg",
+        description: "SUPER CLEAN!!Foreign used Brabus 4matic 2024 model fully loaded",
+      },
+    ];
+
+    let currentIndex = 0;
+
+    function updateHero() {
+      const hero = document.getElementById("hero");
+      const carName = document.getElementById("car-name");
+      const carDescription = document.getElementById("car-description");
+
+      hero.style.backgroundImage = `url('${cars[currentIndex].image}')`;
+      carName.textContent = cars[currentIndex].name;
+      carDescription.textContent = cars[currentIndex].description;
+
+      currentIndex = (currentIndex + 1) % cars.length;
+    }
+
+    setInterval(updateHero, 3000); 
+  </script>
 </body>
 </html>
